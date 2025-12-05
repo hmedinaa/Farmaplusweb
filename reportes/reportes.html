@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes de Ventas - FarmaPlus</title>
+
+  <!-- 
+    Bootstrap y estilos generales ya usados en el proyecto.
+    SE MANTIENE la coherencia visual con otras páginas.
+  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!-- 
+==============================
+ BOTÓN PARA ABRIR SIDEBAR EN MÓVILES
+==============================
+-->
+<button id="menuBtn" class="btn btn-success m-3">☰ Menú</button>
+
+<!-- 
+==============================
+ SIDEBAR DE NAVEGACIÓN
+==============================
+-->
+<div id="sidebar" class="sidebar">
+  <span id="closeSidebar" class="close-sidebar-btn">&times;</span>
+
+  <div class="menu-title">FarmaPlus</div>
+
+  <!-- Opciones existentes -->
+  <div class="menu-item" onclick="location.href='dashboard.html'">Inicio</div>
+  <div class="menu-item" onclick="location.href='Inventario.html'">Inventario</div>
+  <div class="menu-item" onclick="location.href='Pedidos.html'">Pedidos</div>
+
+  <!-- NUEVA SECCIÓN PARA REPORTES -->
+  <div class="menu-item active" onclick="location.href='reportes.html'">Reportes</div>
+
+  <div class="menu-item" onclick="logout()">Cerrar sesión</div>
+</div>
+
+<!-- 
+==============================
+ CONTENIDO PRINCIPAL
+==============================
+-->
+<div class="dashboard-content">
+
+  <div class="header-box">
+    <h2>Reportes de Ventas</h2>
+    <p class="mb-0">Filtra las ventas por rango de fecha (vista inicial).</p>
+  </div>
+
+  <!-- 
+    CARD DE FILTROS
+    En este commit NO filtra nada aún.
+  -->
+  <div class="card p-3 mb-4 shadow-sm">
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">Desde</label>
+        <input type="date" id="f1" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Hasta</label>
+        <input type="date" id="f2" class="form-control">
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary w-100" id="btnFiltrar">
+          Buscar ventas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+    TABLA DE RESULTADOS
+    (Vacía en Commit 1, se llenará en Commit 2)
+  -->
+  <div class="card p-3 shadow-sm">
+    <h5>Resultados</h5>
+
+    <table class="table table-striped" id="tblReport">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Mensaje inicial por defecto -->
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="sidebar.js"></script>
+<script src="reportes.js"></script>
+
+</body>
+</html>
