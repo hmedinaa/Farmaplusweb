@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.form-venta {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 10px;
+    background: #3c8dbc;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #367fa9;
+}
