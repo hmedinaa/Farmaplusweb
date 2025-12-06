@@ -24,6 +24,15 @@ module.exports = {
    * desde el frontend. La factura se guarda en facturas.json como registro
    * persistente.
    *
+   * DÍA 2 — Versión mejorada con validaciones y cálculo automático.
+   *
+   * Mejoras agregadas:
+   *  ✔ Validación de que el pedido exista y contenga productos.
+   *  ✔ Cálculo automático del total basado en cada producto (precio × cantidad).
+   *  ✔ Generación formal del número de factura: F001-00001.
+   *  ✔ Se agrega estado inicial: "emitida".
+   * 
+   * 
    * Flujo:
    * 1. Recibe un objeto "pedido" desde req.body
    * 2. Crea una factura con número único, cliente, productos y total
@@ -36,13 +45,41 @@ module.exports = {
   generarFactura(req, res) {
     const { pedido } = req.body;
 
+    // Validación 1: pedido debe existir
+    if (!pedido) {
+      return res.status(400).json({
+        ok: false,
+        error: "No se recibió ningún pedido para generar factura."
+      });
+    }
+    
+    // Validación 2: Debe tener productos
+    if (!pedido.productos || pedido.productos.length === 0) {
+      return res.status(400).json({
+        ok: false,
+        error: "El pedido no contiene productos válidos."
+      });
+    }
+
+    // Cálculo automático del total
+    let totalCalculado = 0;
+    pedido.productos.forEach(p => {
+      if (p.precio && p.cantidad) {
+        totalCalculado += Number(p.precio) * Number(p.cantidad);
+      }
+    });
+
+    // Número de factura en formato oficial F001-00001
+    const numeroFactura = `F001-${String(facturas.length + 1).padStart(5, "0")}`;
+
     const nuevaFactura = {
       id: facturas.length + 1,
-      numero: "F-" + Date.now(), // Número único basado en timestamp
-      cliente: pedido?.cliente || "Cliente desconocido",
-      productos: pedido?.productos || [],
-      total: pedido?.total || 0,
-      fecha: new Date().toISOString()
+      numero: numeroFactura,
+      cliente: pedido.cliente || "Cliente desconocido",
+      productos: pedido.productos,
+      total: totalCalculado,
+      fecha: new Date().toISOString(),
+      estado: "emitida" // NUEVO: estado inicial de la factura
     };
 
     // Guardar en array temporal
@@ -73,4 +110,7 @@ module.exports = {
   descargarPDF(req, res) {
     res.send("PDF en construcción...");
   }
+  
+
+  
 };
