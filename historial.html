@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historial de Acciones - FarmaPlus</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<button id="menuBtn" class="btn btn-success m-3">☰ Menú</button>
+
+<div id="sidebar" class="sidebar">
+  <span id="closeSidebar" class="close-sidebar-btn">&times;</span>
+  <div class="menu-title">FarmaPlus</div>
+  <div class="menu-item" onclick="location.href='dashboard.html'"><i class="bi bi-house"></i> Inicio</div>
+  <div class="menu-item" onclick="location.href='Inventario.html'"><i class="bi bi-box-seam"></i> Inventario</div>
+  <div class="menu-item" onclick="location.href='Pedidos.html'"><i class="bi bi-cart-check"></i> Pedidos</div>
+  <div class="menu-item" onclick="location.href='Clientes.html'"><i class="bi bi-people"></i> Clientes</div>
+  <div class="menu-item" style="background: #40916c;" onclick="location.href='historial.html'"><i class="bi bi-clock-history"></i> Historial</div>
+  <div class="menu-item" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Salir</div>
+</div>
+
+<div class="dashboard-content">
+  <div class="header-box" style="background: #1b4332;"> <h2>Auditoría del Sistema</h2>
+    <p class="mb-0">Registro de movimientos y acciones de usuarios</p>
+  </div>
+
+  <div id="alerts"></div>
+
+  <div class="card p-3 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5>Últimos movimientos</h5>
+      <button class="btn btn-outline-secondary btn-sm" onclick="loadLogs()">Actualizar</button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered" id="tblLogs">
+        <thead class="table-light">
+          <tr>
+            <th>Fecha/Hora</th>
+            <th>Usuario</th>
+            <th>Acción</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+            </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/historial.js"></script> 
+</body>
+</html>
