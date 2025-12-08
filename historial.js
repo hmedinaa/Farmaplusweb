@@ -39,10 +39,10 @@ async function loadLogs() {
         data.logs.forEach(log => {
             const tr = document.createElement('tr');
             
-            // Formatear fecha bonita
+            // Formatear fecha
             const fecha = new Date(log.created_at).toLocaleString('es-PE');
             
-            // Colores según tipo de acción (Opcional visual)
+            // Colores según tipo de acción
             let badgeClass = 'bg-secondary';
             if (log.action_type.includes('CREATE') || log.action_type.includes('VENTA')) badgeClass = 'bg-success';
             if (log.action_type.includes('DELETE')) badgeClass = 'bg-danger';
@@ -66,7 +66,7 @@ async function loadLogs() {
 // Cargar al iniciar
 loadLogs();
 
-// Función Logout (necesaria porque la llama el sidebar)
+// Función Logout
 function logout() {
     localStorage.clear();
     location.href = "login.html";
