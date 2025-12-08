@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitácora - FarmaPlus</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<button id="menuBtn" class="btn btn-success m-3">☰ Menú</button>
+
+<div id="sidebar" class="sidebar">
+  <span id="closeSidebar" class="close-sidebar-btn">&times;</span>
+  <div class="menu-title">FarmaPlus</div>
+  
+  <div class="menu-item" onclick="location.href='dashboard.html'"><i class="bi bi-house"></i> Inicio</div>
+  <div class="menu-item" onclick="location.href='Inventario.html'"><i class="bi bi-box-seam"></i> Inventario</div>
+  <div class="menu-item" onclick="location.href='Pedidos.html'"><i class="bi bi-cart-check"></i> Pedidos</div>
+  <div class="menu-item" onclick="location.href='Clientes.html'"><i class="bi bi-people"></i> Clientes</div>
+  
+  <div class="menu-item active" onclick="location.href='bitacora.html'"><i class="bi bi-journal-text"></i> Bitácora</div>
+  
+  <div class="menu-item" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</div>
+</div>
+
+<div class="dashboard-content">
+  <div class="header-box">
+    <h2>Bitácora de Auditoría (AD03)</h2>
+    <p class="mb-0">Historial de acciones y seguridad del sistema</p>
+  </div>
+
+  <div id="alerts"></div>
+
+  <div class="card p-4 mb-4 shadow-sm">
+    <h5 class="mb-3"><i class="bi bi-funnel"></i> Configurar Filtros</h5>
+    <div class="row g-3">
+      
+      <div class="col-md-3">
+        <label class="form-label">Usuario</label>
+        <input type="text" id="filtroUsuario" class="form-control" placeholder="Ej: admin@farmaplus.com">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Tipo de Acción</label>
+        <select id="filtroAccion" class="form-select">
+          <option value="">-- Todas --</option>
+          <option value="LOGIN">Inicio de Sesión</option>
+          <option value="CREAR_PRODUCTO">Crear Producto</option>
+          <option value="EDITAR_PRODUCTO">Editar Producto</option>
+          <option value="ELIMINAR_PRODUCTO">Eliminar Producto</option>
+          <option value="GUARDAR_CLIENTE">Guardar Cliente</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Fecha</label>
+        <input type="date" id="filtroFecha" class="form-control">
+      </div>
+
+      <div class="col-md-3 d-flex align-items-end gap-2">
+        <button class="btn btn-primary w-100" onclick="cargarBitacora()">
+          <i class="bi bi-search"></i> Buscar
+        </button>
+        <button class="btn btn-outline-secondary" onclick="limpiarFiltros()">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Fecha/Hora</th>
+              <th>Usuario</th>
+              <th>Acción</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody id="tblBitacora">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="sidebar.js"></script> <script src="bitacora.js"></script>
+</body>
+</html>
