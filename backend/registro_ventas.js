@@ -146,3 +146,44 @@ function addOrderItemRow() {
 }
 
 document.getElementById('addItemBtn').addEventListener('click', addOrderItemRow);
+const modal = new bootstrap.Modal(document.getElementById('modalOrder'));
+
+document.getElementById('btnNew').addEventListener('click', () => {
+  document.getElementById('formOrder').reset();
+  document.getElementById('orderItems').innerHTML = '';
+  addOrderItemRow();
+  modal.show();
+});
+
+document.getElementById('formOrder').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const items = [];
+  document.querySelectorAll('#orderItems .autocomplete-box').forEach(box => {
+    items.push({
+      inventory_id: parseInt(box.querySelector('.item-id').value),
+      quantity: parseInt(box.querySelector('.item-qty').value)
+    });
+  });
+
+  if (items.length === 0) return showAlert("Debes agregar productos", "danger");
+
+  const r = await fetch(API_BASE + '/orders', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({
+      client_id: orderClient.value || null,
+      items
+    })
+  });
+
+  const j = await r.json();
+  if (!j.ok) return showAlert(j.error, 'danger');
+
+  showAlert('Pedido creado correctamente', 'success');
+  modal.hide();
+  loadOrders();
+});
