@@ -18,3 +18,17 @@ document.addEventListener("click", function (e) {
     modal.show();
   }
 });
+
+// ================================
+// HU09 — Día 4
+// Apertura de boleta individual (vista previa)
+// ================================
+
+// Botón para abrir boleta en nueva pestaña
+document.getElementById("btnBoleta").addEventListener("click", () => {
+  if (!ventaSeleccionada) return alert("Selecciona una venta primero.");
+
+  // Abrir boleta.html mostrando la venta seleccionada
+  window.open(`boleta.html?id=${ventaSeleccionada}`, "_blank");
+});
+
