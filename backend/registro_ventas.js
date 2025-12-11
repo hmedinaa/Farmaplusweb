@@ -187,3 +187,36 @@ document.getElementById('formOrder').addEventListener('submit', async (e) => {
   modal.hide();
   loadOrders();
 });
+// === DELETE ===
+document.getElementById('tblOrders').addEventListener('click', async (e) => {
+  if (e.target.classList.contains('btn-del')) {
+    if (!confirm('Anular pedido?')) return;
+
+    const id = e.target.dataset.id;
+
+    const r = await fetch(API_BASE + '/orders/' + id, {
+      method: 'DELETE',
+      headers: { "Authorization": "Bearer " + token }
+    });
+
+    const j = await r.json();
+    if (!j.ok) return showAlert(j.error, 'danger');
+    showAlert('Pedido eliminado', 'success');
+    loadOrders();
+  }
+});
+
+// === VER VENTA ===
+let ventaSeleccionada = null;
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("btn-view")) {
+    ventaSeleccionada = e.target.dataset.id;
+
+    document.getElementById("infoVenta").innerText =
+      "Venta seleccionada: #" + ventaSeleccionada;
+
+    const modal = new bootstrap.Modal(document.getElementById("modalVenta"));
+    modal.show();
+  }
+});
